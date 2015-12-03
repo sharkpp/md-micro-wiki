@@ -10,11 +10,19 @@ class Controller_Page extends Controller_Template
 		$this->template->content = View::forge('page/list', $data);
 	}
 
-	public function action_view()
+	public function action_view($name = '', $timestamp = null)
 	{
-		$data["subnav"] = array('view'=> 'active' );
-		$this->template->title = 'Page &raquo; View';
-		$this->template->content = View::forge('page/view', $data);
+		if ( ! $page = Model_Page::get_by_title($name, $timestamp) ) {
+			if ( $timestamp) {
+				throw new HttpNotFoundException;
+			}
+			Response::redirect($name . '/edit');
+		}
+
+		$this->template->title = (empty($name) ? '(top)' : $name);
+		$this->template->name = $name;
+		$this->template->content = View::forge('page/view')
+		                            ->set_safe('page', $page);
 	}
 
 	public function action_revision()
