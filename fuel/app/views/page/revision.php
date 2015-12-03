@@ -1,9 +1,12 @@
-<ul class="nav nav-pills">
-	<li class='<?php echo Arr::get($subnav, "list" ); ?>'><?php echo Html::anchor('page/list','List');?></li>
-	<li class='<?php echo Arr::get($subnav, "view" ); ?>'><?php echo Html::anchor('page/view','View');?></li>
-	<li class='<?php echo Arr::get($subnav, "revision" ); ?>'><?php echo Html::anchor('page/revision','Revision');?></li>
-	<li class='<?php echo Arr::get($subnav, "edit" ); ?>'><?php echo Html::anchor('page/edit','Edit');?></li>
-	<li class='<?php echo Arr::get($subnav, "delete" ); ?>'><?php echo Html::anchor('page/delete','Delete');?></li>
-
-</ul>
-<p>Revision</p>
+<table>
+<?php $i = 0; foreach ($revisions as $revision): ?>
+  <tr>
+<?php if (0 == $i): ?>
+  <td><?php echo Html::anchor($revision->title, Date::forge($revision->temporal_start)->format("%Y-%m-%d %H:%M:%S")); ?></td>
+<?php else: ?>
+  <td><?php echo Html::anchor($revision->title . '/revision/' . $revision->temporal_start, Date::forge($revision->temporal_start)->format("%Y-%m-%d %H:%M:%S")); ?></td>
+<?php endif; ?>
+    <td><?php echo empty($revision->brief) ? '' : '(' . $revision->brief . ')'; ?></td>
+  </tr>
+<?php $i++; endforeach; ?>
+</table>

@@ -26,10 +26,14 @@ class Controller_Page extends Controller_Template
 		                            ->set_safe('page', $page);
 	}
 
-	public function action_revision()
+	public function action_revision($name = '')
 	{
-		$data["subnav"] = array('revision'=> 'active' );
-		$this->template->title = 'Page &raquo; Revision';
+		if ( ! $data['revisions'] = Model_Page::enum_revisions_by_title($name) ) {
+			throw new HttpNotFoundException;
+		}
+
+		$this->template->title = 'Revision of ' . (empty($name) ? '(top)' : $name);
+		$this->template->name = $name;
 		$this->template->content = View::forge('page/revision', $data);
 	}
 
