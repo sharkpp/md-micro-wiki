@@ -52,8 +52,6 @@ mysql -u root --password=root < $TMPL_DIR/03_site_create_database.sql
 
 mysql -u root --password=root < $TMPL_DIR/03_site_create_test_database.sql
 
-php composer.phar update
-
 rm -f fuel/app/config/development/migrations.php
 php oil r migrate --all
 
