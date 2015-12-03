@@ -5,8 +5,9 @@ class Controller_Page extends Controller_Template
 
 	public function action_list()
 	{
-		$data["subnav"] = array('list'=> 'active' );
-		$this->template->title = 'Page &raquo; List';
+		$data['pages'] = Model_Page::find('all');
+
+		$this->template->title = 'List of all pages';
 		$this->template->content = View::forge('page/list', $data);
 	}
 
