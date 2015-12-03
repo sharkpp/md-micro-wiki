@@ -75,10 +75,24 @@ class Controller_Page extends Controller_Template
 		$this->template->content = View::forge('page/edit');
 	}
 
-	public function action_delete()
+	public function action_delete($name)
 	{
-		$data["subnav"] = array('delete'=> 'active' );
-		$this->template->title = 'Page &raquo; Delete';
+		if ( ! $data['page'] = Model_Page::get_by_title($name) ) {
+			throw new HttpNotFoundException;
+		}
+
+		if (Input::post('submit')) {
+			if ($data['page']->purge()) {
+				Session::set_flash('success', 'Deleted page');
+				Response::redirect('');
+			}
+			else {
+				Session::set_flash('error', 'Could not delete page');
+			}
+		}
+
+		$this->template->title = $name;
+		$this->template->name = $name;
 		$this->template->content = View::forge('page/delete', $data);
 	}
 

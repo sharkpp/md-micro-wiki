@@ -1,9 +1,5 @@
-<ul class="nav nav-pills">
-	<li class='<?php echo Arr::get($subnav, "list" ); ?>'><?php echo Html::anchor('page/list','List');?></li>
-	<li class='<?php echo Arr::get($subnav, "view" ); ?>'><?php echo Html::anchor('page/view','View');?></li>
-	<li class='<?php echo Arr::get($subnav, "revision" ); ?>'><?php echo Html::anchor('page/revision','Revision');?></li>
-	<li class='<?php echo Arr::get($subnav, "edit" ); ?>'><?php echo Html::anchor('page/edit','Edit');?></li>
-	<li class='<?php echo Arr::get($subnav, "delete" ); ?>'><?php echo Html::anchor('page/delete','Delete');?></li>
-
-</ul>
-<p>Delete</p>
+<p>Are you sure you want to delete <?php echo $page->title; ?> ?</p>
+<?php echo Form::open(array("class"=>"form-horizontal")); ?>
+  <?php echo Form::submit('submit', 'Yes, Delete', array('class' => 'btn btn-danger')); ?>
+  <?php echo Html::anchor(isset($page) ? $page->title : '', 'Cancel', array('class' => 'btn btn-normal')); ?>
+<?php echo Form::close(); ?>
