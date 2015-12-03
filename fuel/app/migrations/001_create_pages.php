@@ -15,7 +15,7 @@ class Create_pages
 			'body_html' => array('type' => 'text'),
 			'brief' => array('constraint' => 255, 'type' => 'varchar'),
 
-		), array('id'));
+		), array('id', 'temporal_start', 'temporal_end'));
 	}
 
 	public function down()
